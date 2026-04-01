@@ -1,0 +1,71 @@
+# ========================
+# OS FILES
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# ENV FILES (IMPORTANT)
+# ========================
+.env
+.env.*
+*.env
+
+# ========================
+# LOG FILES
+# ========================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# ========================
+# NODE MODULES (Backend + Frontend)
+# ========================
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# ========================
+# BUILD FILES (React)
+# ========================
+frontend/build/
+frontend/dist/
+
+# ========================
+# DJANGO FILES
+# ========================
+*.pyc
+__pycache__/
+db.sqlite3
+
+# Virtual Environment
+venv/
+env/
+
+# Django static/media
+staticfiles/
+media/
+
+# ========================
+# ML MODEL FILES (OPTIONAL)
+# ========================
+ml-service/model/*.pkl
+
+# ========================
+# IDE FILES
+# ========================
+.vscode/
+.idea/
+
+# ========================
+# TEST / CACHE
+# ========================
+.pytest_cache/
+coverage/
+
+# ========================
+# DOCKER (if used)
+# ========================
+*.pid
+*.seed
