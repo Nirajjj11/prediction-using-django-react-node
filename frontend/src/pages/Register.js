@@ -5,12 +5,26 @@ function Register() {
       const [email, setEmail] = useState("");
       const [password, setPassword] = useState("");
 
+      // const handleRegister = async () => {
+      //       try {
+      //             await API.post("/auth/register", { email, password });
+      //             alert("Registered");
+      //       } catch (err) {
+      //             console.log(err);
+      //       }
+      // };
+
       const handleRegister = async () => {
+            console.log("EMAIL:", email);
+            console.log("PASSWORD:", password);
+
             try {
-                  await API.post("/auth/register", { email, password });
-                  alert("Registered");
+                  const res = await API.post("/auth/register", { email, password });
+
+                  console.log("REGISTER SUCCESS:", res.data);
+
             } catch (err) {
-                  console.log(err);
+                  console.log("REGISTER ERROR:", err.response?.data);
             }
       };
 

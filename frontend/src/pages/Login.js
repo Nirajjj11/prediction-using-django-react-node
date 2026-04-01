@@ -1,48 +1,58 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
+import API from "../services/api";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
 
-function Navbar() {
-      const { user, logout } = useContext(AuthContext);
+function Login() {
+      const { login } = useContext(AuthContext);
       const navigate = useNavigate();
-      const [dark, setDark] = useState(false);
 
-      const handleLogout = () => {
-            logout();
-            navigate("/login");
-      };
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
 
-      const toggleTheme = () => {
-            setDark(!dark);
-            document.body.style.background = dark ? "white" : "#121212";
-            document.body.style.color = dark ? "black" : "white";
+      const handleLogin = async () => {
+            console.log("LOGIN CLICKED", email, password);
+
+            try {
+                  const res = await API.post("/auth/login", { email, password });
+
+                  console.log("SUCCESS:", res.data);
+
+                  login(res.data);
+                  navigate("/dashboard");
+
+            } catch (err) {
+                  console.log("ERROR:", err.response?.data);
+                  alert("Login failed");
+            }
       };
 
       return (
-            <nav className="navbar bg-dark navbar-dark px-3">
-                  <Link className="navbar-brand" to="/">ML Dashboard</Link>
+            <div className="container mt-5">
+                  <div className="card p-4 shadow">
+                        <h3>Login</h3>
 
-                  <div>
-                        <button className="btn btn-secondary me-2" onClick={toggleTheme}>
-                              Mode
+                        <input
+                              className="form-control mb-2"
+                              placeholder="Email"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                        />
+
+                        <input
+                              className="form-control mb-2"
+                              type="password"
+                              placeholder="Password"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                        />
+
+                        <button className="btn btn-primary" onClick={handleLogin}>
+                              Login
                         </button>
-
-                        {!user ? (
-                              <>
-                                    <Link className="btn btn-success me-2" to="/register">Register</Link>
-                                    <Link className="btn btn-primary" to="/login">Login</Link>
-                              </>
-                        ) : (
-                              <>
-                                    <span className="text-white me-3">{user.email}</span>
-                                    <button className="btn btn-danger" onClick={handleLogout}>
-                                          Logout
-                                    </button>
-                              </>
-                        )}
                   </div>
-            </nav>
+            </div>
       );
 }
 
-export default Navbar;
+export default Login;
